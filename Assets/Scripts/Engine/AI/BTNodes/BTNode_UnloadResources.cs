@@ -1,5 +1,6 @@
 using System;
 using Atomic.AI;
+using Atomic.Extensions;
 using Atomic.Objects;
 using UnityEngine;
 
@@ -9,16 +10,17 @@ namespace Game.Engine
     public sealed class BTNode_UnloadResources : BTNode
     {
         public override string Name => "Unload Resources";
-
-        [SerializeField, BlackboardKey]
-        private ushort character;
-
-        [SerializeField, BlackboardKey]
-        private ushort targetStorage;
         
         protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
         {
-            throw new NotImplementedException();
+            var targetStorage = blackboard.GetBarn().Storage;
+            var character = blackboard.GetCharacter();
+            var characterStorage = character.ResourceBag;
+
+            var amount = characterStorage.ExtractAllResources();
+            targetStorage.PutResources(amount);
+
+            return BTState.SUCCESS;
         }
     }
 }

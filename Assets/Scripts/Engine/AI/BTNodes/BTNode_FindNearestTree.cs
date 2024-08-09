@@ -22,12 +22,13 @@ namespace Engine.AI.BTNodes
 
         protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
         {
-            var resourceService = blackboard.GetObject<ResourceService>(this.resourceService);
-            var character = blackboard.GetObject<Character>(this.character);
-            resourceService.FindClosestResource(character.Transform.position, out IAtomicObject result);
+            var resourceService = blackboard.GetResourceService();
+            var character = blackboard.GetCharacter();
+            
+            var boolResult = resourceService.FindClosestResource(character.Transform.position, out IAtomicObject result);
             blackboard.SetObject(targetResource, result);
             
-            return BTState.SUCCESS;
+            return !boolResult ? BTState.FAILURE : BTState.SUCCESS;
         }
     }
 }

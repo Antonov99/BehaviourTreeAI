@@ -32,3 +32,15 @@ MonoBehaviour:
   - id: 3
     name: TargetResource
     type: 'IAtomicObject : class'
+  - id: 4
+    name: Target
+    type: 'IAtomicObject : class'
+  - id: 5
+    name: StoppingDistance
+    type: float
+  - id: 6
+    name: Barn
+    type: 'Barn : class'
+  - id: 7
+    name: FullBarnText
+    type: GameObject
